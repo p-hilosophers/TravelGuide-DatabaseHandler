@@ -17,6 +17,7 @@ public class City {
 
     private double latitude;
 
+    //TODO:Delete these 2 fields
     private int photoCount;
 
     private byte[] photo;

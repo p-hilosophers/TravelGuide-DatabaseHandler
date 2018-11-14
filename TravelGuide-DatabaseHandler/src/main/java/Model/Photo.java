@@ -18,6 +18,8 @@ public class Photo {
 
     private double latitude;
 
+
+    //TODO: make this to String (URL)
     private byte[] image;
 
     private byte[] thumbnail;
