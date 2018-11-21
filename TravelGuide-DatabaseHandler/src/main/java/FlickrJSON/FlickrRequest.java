@@ -49,6 +49,14 @@ public class FlickrRequest {
         httpRequest();
     }
 
+    public void getImgUrl(String photoId){
+        url = "https://api.flickr.com/services/rest/?method=flickr.photos.getSizes" +
+                "&photo_id=" + photoId +
+                "&api_key="+apiKey+
+                "&format=json&nojsoncallback=1";
+        httpRequest();
+    }
+
 
     private void httpRequest(){
         if(url != null){

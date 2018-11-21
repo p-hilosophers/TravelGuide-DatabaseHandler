@@ -1,14 +1,26 @@
 package FlickrJSON;
 
-public class PhotoGeoLoc {
+import java.io.Serializable;
+
+public class PhotoGeoLoc implements Serializable {
     private String id;
     private String latitude;
     private String longitude;
+    private String imgUrl;
 
-    public PhotoGeoLoc(String latitude, String longitude,String id) {
+    public PhotoGeoLoc(String latitude, String longitude, String id ,String imgUrl) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getLatitude() {

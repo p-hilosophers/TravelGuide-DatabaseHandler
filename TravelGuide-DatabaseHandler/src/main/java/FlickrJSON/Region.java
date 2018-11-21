@@ -1,17 +1,28 @@
 package FlickrJSON;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Region {
-    private String name = "";
-    private String regionId = "";
-    private List<PhotoGeoLoc> photoGeoLocList = new ArrayList<>();
+public class Region implements Serializable {
+    private String name;
+    private String regionId;
+    private String countPhoto;
+    private List<PhotoGeoLoc> photoGeoLocList;
 
-    public Region(String name, String regionId, List<PhotoGeoLoc> photoGeoLocList) {
+    public Region(String name, String regionId, String countPhoto, List<PhotoGeoLoc> photoGeoLocList) {
         this.name = name;
         this.regionId = regionId;
+        this.countPhoto = countPhoto;
         this.photoGeoLocList = photoGeoLocList;
+    }
+
+    public String getCountPhoto() {
+        return countPhoto;
+    }
+
+    public void setCountPhoto(String countPhoto) {
+        this.countPhoto = countPhoto;
     }
 
     public String getName() {

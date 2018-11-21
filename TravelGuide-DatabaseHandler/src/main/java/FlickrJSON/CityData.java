@@ -1,9 +1,10 @@
 package FlickrJSON;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityData {
+public class CityData implements Serializable {
     private String cityName="";
     private String cityId="";
 
