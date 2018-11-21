@@ -17,7 +17,7 @@ public class CityInfo {
         JSONObject placeId_json = flickrRequest.getResponseJSON_Format();
         String placeId = placeId_json.getJSONObject("places").getJSONArray("place").getJSONObject(0).getString("place_id");
 
-        cityData = new CityData(placeId,nameOfPlace,getTopPhotoCountOfRegion(placeId));
+        cityData = new CityData(nameOfPlace,placeId,getTopPhotoCountOfRegion(placeId));
     }
 
     private List<Region> getTopPhotoCountOfRegion(String placeId) throws JSONException {

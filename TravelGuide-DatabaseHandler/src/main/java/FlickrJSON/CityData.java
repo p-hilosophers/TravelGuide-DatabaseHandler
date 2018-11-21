@@ -7,6 +7,9 @@ import java.util.List;
 public class CityData implements Serializable {
     private String cityName="";
     private String cityId="";
+    public List<Region> getRegionList() {
+        return regionList;
+    }
 
 
     public CityData(String cityName, String cityId, List<Region> regionList) {
@@ -31,9 +34,6 @@ public class CityData implements Serializable {
         this.cityId = cityId;
     }
 
-    public List<Region> getRegionList() {
-        return regionList;
-    }
 
     public void setRegionList(List<Region> regionList) {
         this.regionList = regionList;
