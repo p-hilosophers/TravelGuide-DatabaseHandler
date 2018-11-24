@@ -89,13 +89,6 @@ public class FlickrRequest {
         return responseJSON_Format;
     }
 
-    public void setResponseJSON_Format(JSONObject responseJSON_Format) {
-        this.responseJSON_Format = responseJSON_Format;
-    }
-
-    public String getApiKey() {
-        return apiKey;
-    }
 
 
 }

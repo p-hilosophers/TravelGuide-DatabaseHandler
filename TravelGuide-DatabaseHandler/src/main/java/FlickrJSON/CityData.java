@@ -1,16 +1,12 @@
 package FlickrJSON;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CityData implements Serializable {
-    private String cityName="";
-    private String cityId="";
-    public List<Region> getRegionList() {
-        return regionList;
-    }
-
+    private String cityName;
+    private String cityId;
+    private List<Region> regionList;
 
     public CityData(String cityName, String cityId, List<Region> regionList) {
         this.cityName = cityName;
@@ -39,6 +35,8 @@ public class CityData implements Serializable {
         this.regionList = regionList;
     }
 
-    private List<Region> regionList =new ArrayList<>();
+    public List<Region> getRegionList() {
+        return regionList;
+    }
 
 }

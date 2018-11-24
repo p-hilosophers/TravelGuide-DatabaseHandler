@@ -12,41 +12,53 @@ public class CityInfo {
     private CityData cityData;
 
 
-    public void placeIdFromJSON(String nameOfPlace) throws JSONException {
-        flickrRequest.getPlaceId(nameOfPlace);
-        JSONObject placeId_json = flickrRequest.getResponseJSON_Format();
-        String placeId = placeId_json.getJSONObject("places").getJSONArray("place").getJSONObject(0).getString("place_id");
+    public void placeIdFromJSON(String nameOfPlace)  {
+        try {
+            flickrRequest.getPlaceId(nameOfPlace);
+            JSONObject placeId_json = flickrRequest.getResponseJSON_Format();
+            String placeId = placeId_json.getJSONObject("places").getJSONArray("place").getJSONObject(0).getString("place_id");
 
-        cityData = new CityData(nameOfPlace,placeId,getTopPhotoCountOfRegion(placeId));
+            cityData = new CityData(nameOfPlace,placeId,getTopPhotoCountOfRegion(placeId));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    private List<Region> getTopPhotoCountOfRegion(String placeId) throws JSONException {
+    private List<Region> getTopPhotoCountOfRegion(String placeId) {
         List<Region> regions = new ArrayList<>();
         flickrRequest.photoCountPerRegion(placeId);
         JSONObject region_json = flickrRequest.getResponseJSON_Format();
-        for (int i = 0; i < 5; i++) {
+        try {
+            for (int i = 0; i < 5; i++) {
 
-            String regionName = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("woe_name");
-            String regionId = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("place_id");
-            String latitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("latitude");
-            String longitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("longitude");
-            String photoCount = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count");
+                String regionName = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("woe_name");
+                String regionId = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("place_id");
+                String latitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("latitude");
+                String longitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("longitude");
+                String photoCount = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count");
 
 
-            regions.add(new Region(regionName,regionId,photoCount,getPhotoListByGeoLoc(latitude, longitude)));
+                regions.add(new Region(regionName,regionId,photoCount,getPhotoListByGeoLoc(latitude, longitude)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return regions;
 
     }
 
-    private List<PhotoGeoLoc> getPhotoListByGeoLoc(String latitude, String longitude) throws JSONException {
+    private List<PhotoGeoLoc> getPhotoListByGeoLoc(String latitude, String longitude){
         flickrRequest.getPhotosByGeoLoc(latitude, longitude, "0.3");
         List<PhotoGeoLoc> photoGeoLocsList = new ArrayList<>();
         JSONObject photoId_json = flickrRequest.getResponseJSON_Format();
-        for (int i = 0; i < 25; i++) {
+        try {
+            for (int i = 0; i < 25; i++) {
 
-            String photoId = photoId_json.getJSONObject("photos").getJSONArray("photo").getJSONObject(i).getString("id");
-            photoGeoLocsList.add(getGeoLocFromPhotoId(photoId));
+                String photoId = photoId_json.getJSONObject("photos").getJSONArray("photo").getJSONObject(i).getString("id");
+                photoGeoLocsList.add(getGeoLocFromPhotoId(photoId));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return photoGeoLocsList;
     }
