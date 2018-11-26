@@ -1,9 +1,10 @@
 package FlickrJSON;
 
+import FlickrJSON.Model.Flickr.CityData;
+import FlickrJSON.Model.Flickr.Region;
+import FlickrJSON.Services.CityInfo;
 import org.json.JSONException;
-import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class CityDataTest {
         for(Region r : regionList){
             r.getPhotoGeoLocList().clear();
         }
-        rr1.add(new Region("Shoreditch","m3hb5ZZSVr3OFg","137099",null));
+        //rr1.add(new Region("Shoreditch","m3hb5ZZSVr3OFg","137099",null));
 
         assertEquals(rr1.get(0).getName(),regionList.get(0).getName());
         assertEquals(rr1.get(0).getRegionId(),regionList.get(0).getRegionId());

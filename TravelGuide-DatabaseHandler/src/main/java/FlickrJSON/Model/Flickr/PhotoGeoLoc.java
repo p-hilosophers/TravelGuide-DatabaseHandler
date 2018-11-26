@@ -1,4 +1,4 @@
-package FlickrJSON;
+package FlickrJSON.Model.Flickr;
 
 import java.io.Serializable;
 

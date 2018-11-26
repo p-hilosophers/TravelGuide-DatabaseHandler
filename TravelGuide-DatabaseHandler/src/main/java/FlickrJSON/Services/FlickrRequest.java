@@ -1,4 +1,4 @@
-package FlickrJSON;
+package FlickrJSON.Services;
 
 import org.json.JSONObject;
 

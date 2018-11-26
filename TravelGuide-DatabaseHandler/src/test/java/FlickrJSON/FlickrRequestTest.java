@@ -1,5 +1,6 @@
 package FlickrJSON;
 
+import FlickrJSON.Services.FlickrRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

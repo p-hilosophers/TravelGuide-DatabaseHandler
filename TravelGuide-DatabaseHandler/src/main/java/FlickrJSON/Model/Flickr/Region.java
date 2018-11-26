@@ -1,20 +1,39 @@
-package FlickrJSON;
+package FlickrJSON.Model.Flickr;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Region implements Serializable {
     private String name;
     private String regionId;
     private String countPhoto;
+    private String latitude;
+    private String longitude;
     private List<PhotoGeoLoc> photoGeoLocList;
 
-    public Region(String name, String regionId, String countPhoto, List<PhotoGeoLoc> photoGeoLocList) {
+    public Region(String name, String regionId, String countPhoto, String latitude, String longitude,List<PhotoGeoLoc> photoGeoLocList) {
         this.name = name;
         this.regionId = regionId;
         this.countPhoto = countPhoto;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.photoGeoLocList = photoGeoLocList;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getCountPhoto() {
