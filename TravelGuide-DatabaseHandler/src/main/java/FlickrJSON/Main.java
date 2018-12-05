@@ -1,25 +1,15 @@
 package FlickrJSON;
 
 
-import FlickrJSON.Model.*;
-import FlickrJSON.Model.BackEnd.Photo;
-import FlickrJSON.Model.BackEnd.Sight;
-import FlickrJSON.Model.Flickr.CityData;
-import FlickrJSON.Model.Flickr.PhotoGeoLoc;
-import FlickrJSON.Model.Flickr.Region;
 import FlickrJSON.Services.CityInfo;
-import FlickrJSON.Services.FlickrClient;
-import retrofit2.*;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.util.List;
+import org.json.JSONException;
 
 
 public class Main {
 
 
     public static void main(String[] args) {
-        CityList retrieveCityList = new CityList();
+        /*CityList retrieveCityList = new CityList();
         retrieveCityList.retrieveCityList();
 
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://83.212.103.26:8081/").addConverterFactory(GsonConverterFactory.create());
@@ -91,7 +81,11 @@ public class Main {
                 }
             }
 
-        }
+        }*/
+
+        CityInfo cityInfo = new CityInfo();
+        cityInfo.placeIdFromJSON("Paris");
+        System.out.println();
 
 
     }
