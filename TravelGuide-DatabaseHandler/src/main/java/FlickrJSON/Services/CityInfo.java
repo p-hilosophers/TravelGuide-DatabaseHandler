@@ -6,6 +6,8 @@ import FlickrJSON.Model.Flickr.Region;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class CityInfo {
         flickrRequest.geoLocFromPhoto(photoId);
         JSONObject photoGeoLoc_json = flickrRequest.getResponseJSON_Format();
         return new PhotoGeoLoc(photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("latitude"),
-                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId));
+                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId), getPhotoSeason(photoId));
     }
 
     private String getImgUrl(String photoId) throws JSONException {
@@ -78,6 +80,39 @@ public class CityInfo {
         JSONObject imgUrl_json = flickrRequest.getResponseJSON_Format();
         return imgUrl_json.getJSONObject("sizes").getJSONArray("size").getJSONObject(imgUrl_json.getJSONObject("sizes").getJSONArray("size").length() - 1).getString("source");
 
+    }
+
+    public String getPhotoSeason(String photoId) throws JSONException {
+        flickrRequest.getPhotoDateTime(photoId);
+        JSONObject photoDateTime = flickrRequest.getResponseJSON_Format();
+
+        String dateTime = photoDateTime.getJSONObject("photo").getJSONObject("dates").getString("taken");
+
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, sdf);
+
+        return getSeason(localDateTime.getMonthValue() * 100 + localDateTime.getDayOfMonth());
+    }
+
+    private String getSeason(int monthDay){
+        String season;
+
+        if (monthDay <= 315) {
+            season = "Winter";
+        }
+        else if (monthDay <= 615) {
+            season = "Spring";
+        }
+        else if (monthDay <= 915) {
+            season = "Summer";
+        }
+        else if (monthDay <= 1215) {
+            season = "Fall";
+        }
+        else {
+            season = "Winter";
+        }
+        return season;
     }
 
     public CityData getCityData() {

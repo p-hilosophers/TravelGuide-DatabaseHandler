@@ -57,6 +57,14 @@ public class FlickrRequest {
         httpRequest();
     }
 
+    public void getPhotoDateTime(String photoId){
+        url = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo" +
+                "&photo_id=" + photoId +
+                "&api_key="+apiKey+
+                "&format=json&nojsoncallback=1";
+        httpRequest();
+    }
+
 
     private void httpRequest(){
         if(url != null){
