@@ -84,7 +84,7 @@ public class Main {
         }*/
 
         CityInfo cityInfo = new CityInfo();
-        cityInfo.placeIdFromJSON("Paris");
+        cityInfo.placeIdFromJSON("Athens");
         System.out.println();
 
 
