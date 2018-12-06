@@ -7,13 +7,15 @@ public class PhotoGeoLoc implements Serializable {
     private String latitude;
     private String longitude;
     private String imgUrl;
+    private String date;
     private String season;
 
-    public PhotoGeoLoc(String latitude, String longitude, String id, String imgUrl, String season) {
+    public PhotoGeoLoc(String latitude, String longitude, String id, String imgUrl, String date, String season) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.imgUrl = imgUrl;
+        this.date = date;
         this.season = season;
     }
 
