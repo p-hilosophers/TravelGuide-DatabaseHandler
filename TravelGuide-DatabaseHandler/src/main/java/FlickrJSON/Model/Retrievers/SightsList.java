@@ -1,4 +1,4 @@
-package FlickrJSON.Model;
+package FlickrJSON.Model.Retrievers;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,16 +10,15 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PhotoList {
+public class SightsList {
 
-    private List<String> photoIdList = new LinkedList<>();
+    private List<String> sightIdList = new LinkedList<>();
+    private List<String> sightNameList = new LinkedList<>();
 
-    public void retrievePhotoList(String sightName){
+    public void getSightList(String cityName){
 
         try{
-
-            sightName = sightName.replaceAll(" ","%20");
-            URL urlObj = new URL("http://83.212.103.26:8081/sights/" + sightName + "/photos");
+            URL urlObj = new URL("http://83.212.103.26:8081/cities/" + cityName +"/sights");
             HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
 
             BufferedReader in = new BufferedReader( new InputStreamReader((con.getInputStream())));
@@ -34,17 +33,20 @@ public class PhotoList {
             JSONArray jsonArray = new JSONArray(response.toString());
             for(int i =0;i<jsonArray.length();i++){
                 JSONObject json = (JSONObject) jsonArray.get(i);
-                photoIdList.add(json.getString("name"));
-
+                sightIdList.add(json.getString("sightId"));
+                sightNameList.add(json.getString("name"));
             }
         }
         catch (Exception ex){
             System.out.println(ex);
         }
-
     }
 
-    public List<String> getPhotoIdList() {
-        return photoIdList;
+    public List<String> getSightIdList() {
+        return sightIdList;
+    }
+
+    public List<String> getSightNameList() {
+        return sightNameList;
     }
 }

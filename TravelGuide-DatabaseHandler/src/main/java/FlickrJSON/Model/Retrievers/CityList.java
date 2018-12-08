@@ -1,4 +1,4 @@
-package FlickrJSON.Model;
+package FlickrJSON.Model.Retrievers;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

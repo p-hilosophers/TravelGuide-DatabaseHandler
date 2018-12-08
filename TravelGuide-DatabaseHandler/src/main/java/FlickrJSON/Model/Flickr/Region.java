@@ -9,15 +9,25 @@ public class Region implements Serializable {
     private String countPhoto;
     private String latitude;
     private String longitude;
+    private String season;
     private List<PhotoGeoLoc> photoGeoLocList;
 
-    public Region(String name, String regionId, String countPhoto, String latitude, String longitude,List<PhotoGeoLoc> photoGeoLocList) {
+    public Region(String name, String regionId, String countPhoto, String latitude, String longitude, String season, List<PhotoGeoLoc> photoGeoLocList) {
         this.name = name;
         this.regionId = regionId;
         this.countPhoto = countPhoto;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.season = season;
         this.photoGeoLocList = photoGeoLocList;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
     }
 
     public String getLatitude() {
