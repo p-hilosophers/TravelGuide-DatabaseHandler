@@ -9,14 +9,17 @@ public class Sight {
 
     private double latitude;
 
-    private String photoCount;
+    private String season;
+
+    private int photoCount;
 
     public Sight(){}
 
-    public Sight(String name, double longitude, double latitude,String photoCount) {
+    public Sight(String name, double longitude, double latitude, String season, int photoCount) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.season = season;
         this.photoCount = photoCount;
     }
 
@@ -28,11 +31,11 @@ public class Sight {
         this.name = name;
     }
 
-    public String getPhotoCount() {
+    public int getPhotoCount() {
         return photoCount;
     }
 
-    public void setPhotoCount(String photoCount) {
+    public void setPhotoCount(int photoCount) {
         this.photoCount = photoCount;
     }
 
@@ -52,4 +55,11 @@ public class Sight {
         this.latitude = latitude;
     }
 
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
 }

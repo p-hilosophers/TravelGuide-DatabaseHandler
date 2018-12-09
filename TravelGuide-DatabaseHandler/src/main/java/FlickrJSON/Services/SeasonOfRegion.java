@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SeasonOfReg {
+public class SeasonOfRegion {
 
 
     public String decideSeason(List<PhotoGeoLoc> photoGeoLocList) {
