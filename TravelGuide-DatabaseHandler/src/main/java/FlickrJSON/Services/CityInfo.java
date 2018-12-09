@@ -39,12 +39,12 @@ public class CityInfo {
                 String regionId = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("place_id");
                 String latitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("latitude");
                 String longitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("longitude");
-                String photoCount = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count");
+                int photoCount = Integer.parseInt(region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count"));
 
                 List<PhotoGeoLoc> photoGeoLocList = getPhotoListByGeoLoc(latitude, longitude);
-                SeasonOfReg seasonOfReg = new SeasonOfReg();
+                SeasonOfRegion seasonOfRegion = new SeasonOfRegion();
 
-                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, seasonOfReg.decideSeason(photoGeoLocList),photoGeoLocList ));
+                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, seasonOfRegion.decideSeason(photoGeoLocList),photoGeoLocList ));
             }
         } catch (JSONException e) {
             e.printStackTrace();
