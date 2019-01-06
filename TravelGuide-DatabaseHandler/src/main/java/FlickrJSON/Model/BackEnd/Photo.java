@@ -9,7 +9,7 @@ public class Photo {
 
     private double latitude;
 
-    private String image;
+    private String imageUrl;
 
 
     public Photo(){}
@@ -38,10 +38,10 @@ public class Photo {
         this.latitude = latitude;
     }
 
-    public Photo(String name, double longitude, double latitude,String imageUrl) {
+    public Photo(String name, double longitude, double latitude, String imageUrl) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.image = imageUrl;
+        this.imageUrl = imageUrl;
     }
 }
