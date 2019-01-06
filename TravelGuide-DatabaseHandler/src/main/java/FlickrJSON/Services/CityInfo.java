@@ -3,6 +3,7 @@ package FlickrJSON.Services;
 import FlickrJSON.Model.Flickr.CityData;
 import FlickrJSON.Model.Flickr.PhotoGeoLoc;
 import FlickrJSON.Model.Flickr.Region;
+import FlickrJSON.Model.Flickr.SeasonDateTimeDto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,16 +33,18 @@ public class CityInfo {
         flickrRequest.photoCountPerRegion(placeId);
         JSONObject region_json = flickrRequest.getResponseJSON_Format();
         try {
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i <15; i++) {
 
                 String regionName = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("woe_name");
                 String regionId = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("place_id");
                 String latitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("latitude");
                 String longitude = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("longitude");
-                String photoCount = region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count");
+                int photoCount = Integer.parseInt(region_json.getJSONObject("places").getJSONArray("place").getJSONObject(i).getString("photo_count"));
 
+                List<PhotoGeoLoc> photoGeoLocList = getPhotoListByGeoLoc(latitude, longitude);
+                SeasonOfRegion seasonOfRegion = new SeasonOfRegion();
 
-                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, getPhotoListByGeoLoc(latitude, longitude)));
+                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, seasonOfRegion.decideSeason(photoGeoLocList),photoGeoLocList ));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -69,8 +72,9 @@ public class CityInfo {
     private PhotoGeoLoc getGeoLocFromPhotoId(String photoId) throws JSONException {
         flickrRequest.geoLocFromPhoto(photoId);
         JSONObject photoGeoLoc_json = flickrRequest.getResponseJSON_Format();
+        SeasonDateTimeDto sdtd = getPhotoSeason(photoId);
         return new PhotoGeoLoc(photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("latitude"),
-                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId));
+                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId), sdtd.getDateTime(),sdtd.getSeason() );
     }
 
     private String getImgUrl(String photoId) throws JSONException {
@@ -79,6 +83,19 @@ public class CityInfo {
         return imgUrl_json.getJSONObject("sizes").getJSONArray("size").getJSONObject(imgUrl_json.getJSONObject("sizes").getJSONArray("size").length() - 1).getString("source");
 
     }
+
+    public SeasonDateTimeDto getPhotoSeason(String photoId) throws JSONException {
+        flickrRequest.getPhotoDateTime(photoId);
+        JSONObject photoDateTime = flickrRequest.getResponseJSON_Format();
+
+        String dateTime = photoDateTime.getJSONObject("photo").getJSONObject("dates").getString("taken");
+        SeasonDateTimeDto seasonDateTimeDto = new SeasonDateTimeDto();
+        seasonDateTimeDto.setDateTime(dateTime);
+
+        return seasonDateTimeDto;
+    }
+
+
 
     public CityData getCityData() {
         return cityData;

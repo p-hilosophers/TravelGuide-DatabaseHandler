@@ -1,15 +1,20 @@
 package FlickrJSON;
 
 
-import FlickrJSON.Model.*;
 import FlickrJSON.Model.BackEnd.Photo;
 import FlickrJSON.Model.BackEnd.Sight;
 import FlickrJSON.Model.Flickr.CityData;
 import FlickrJSON.Model.Flickr.PhotoGeoLoc;
 import FlickrJSON.Model.Flickr.Region;
+import FlickrJSON.Model.Retrievers.CityList;
+import FlickrJSON.Model.Retrievers.PhotoList;
+import FlickrJSON.Model.Retrievers.SightsList;
 import FlickrJSON.Services.CityInfo;
 import FlickrJSON.Services.FlickrClient;
-import retrofit2.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
@@ -75,7 +80,7 @@ public class Main {
                         }
                     }
                 } else {
-                    Sight sight = new Sight(region.getName(), Double.parseDouble(region.getLongitude()), Double.parseDouble(region.getLatitude()),region.getCountPhoto());
+                    Sight sight = new Sight(region.getName(), Double.parseDouble(region.getLongitude()), Double.parseDouble(region.getLatitude()),region.getSeason(),region.getCountPhoto());
                     Call<Sight> caller = client.sendSight(cityId.get(i),sight);
                     caller.enqueue(new Callback<Sight>() {
                         @Override
@@ -92,6 +97,7 @@ public class Main {
             }
 
         }
+
 
 
     }
