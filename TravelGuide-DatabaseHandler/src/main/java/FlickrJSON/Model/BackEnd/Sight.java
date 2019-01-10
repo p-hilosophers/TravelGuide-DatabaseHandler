@@ -11,15 +11,18 @@ public class Sight {
 
     private String season;
 
+    private String dayNight;
+
     private int photoCount;
 
     public Sight(){}
 
-    public Sight(String name, double longitude, double latitude, String season, int photoCount) {
+    public Sight(String name, double longitude, double latitude, String season, String dayNight, int photoCount) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
         this.season = season;
+        this.dayNight = dayNight;
         this.photoCount = photoCount;
     }
 
@@ -61,5 +64,13 @@ public class Sight {
 
     public void setSeason(String season) {
         this.season = season;
+    }
+
+    public String getDayNight() {
+        return dayNight;
+    }
+
+    public void setDayNight(String dayNight) {
+        this.dayNight = dayNight;
     }
 }

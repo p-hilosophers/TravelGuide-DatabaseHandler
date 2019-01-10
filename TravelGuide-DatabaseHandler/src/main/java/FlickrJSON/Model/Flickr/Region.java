@@ -79,4 +79,12 @@ public class Region implements Serializable {
     public void setPhotoGeoLocList(List<PhotoGeoLoc> photoGeoLocList) {
         this.photoGeoLocList = photoGeoLocList;
     }
+
+    public String getDayNight() {
+        return dayNight;
+    }
+
+    public void setDayNight(String dayNight) {
+        this.dayNight = dayNight;
+    }
 }

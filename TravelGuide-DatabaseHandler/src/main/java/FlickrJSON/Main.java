@@ -27,7 +27,7 @@ public class Main {
         CityList retrieveCityList = new CityList();
         retrieveCityList.retrieveCityList();
 
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://83.212.103.26:8081/").addConverterFactory(GsonConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://35.204.237.100:8081/").addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         FlickrClient client = retrofit.create(FlickrClient.class);
@@ -80,7 +80,7 @@ public class Main {
                         }
                     }
                 } else {
-                    Sight sight = new Sight(region.getName(), Double.parseDouble(region.getLongitude()), Double.parseDouble(region.getLatitude()),region.getSeason(),region.getCountPhoto());
+                    Sight sight = new Sight(region.getName(), Double.parseDouble(region.getLongitude()), Double.parseDouble(region.getLatitude()),region.getSeason(), region.getDayNight(), region.getCountPhoto());
                     Call<Sight> caller = client.sendSight(cityId.get(i),sight);
                     caller.enqueue(new Callback<Sight>() {
                         @Override
