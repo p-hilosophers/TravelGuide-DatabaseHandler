@@ -9,14 +9,16 @@ public class PhotoGeoLoc implements Serializable {
     private String imgUrl;
     private String date;
     private String season;
+    private String dayNight;
 
-    public PhotoGeoLoc(String latitude, String longitude, String id, String imgUrl, String date, String season) {
+    public PhotoGeoLoc(String latitude, String longitude, String id, String imgUrl, String date, String season, String dayNight) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.imgUrl = imgUrl;
         this.date = date;
         this.season = season;
+        this.dayNight = dayNight;
     }
 
     public String getSeason() {
@@ -53,6 +55,10 @@ public class PhotoGeoLoc implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getDayNight() {
+        return dayNight;
     }
 
     public void setId(String id) {

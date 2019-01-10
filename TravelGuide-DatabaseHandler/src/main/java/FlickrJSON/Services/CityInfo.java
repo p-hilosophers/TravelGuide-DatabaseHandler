@@ -7,7 +7,10 @@ import FlickrJSON.Model.Flickr.SeasonDateTimeDto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CityInfo {
@@ -43,8 +46,9 @@ public class CityInfo {
 
                 List<PhotoGeoLoc> photoGeoLocList = getPhotoListByGeoLoc(latitude, longitude);
                 SeasonOfRegion seasonOfRegion = new SeasonOfRegion();
+                RegionHour regionHour = new RegionHour();
 
-                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, seasonOfRegion.decideSeason(photoGeoLocList),photoGeoLocList ));
+                regions.add(new Region(regionName, regionId, photoCount, latitude, longitude, seasonOfRegion.decideSeason(photoGeoLocList), regionHour.hourDecide(photoGeoLocList), photoGeoLocList ));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -74,7 +78,7 @@ public class CityInfo {
         JSONObject photoGeoLoc_json = flickrRequest.getResponseJSON_Format();
         SeasonDateTimeDto sdtd = getPhotoSeason(photoId);
         return new PhotoGeoLoc(photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("latitude"),
-                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId), sdtd.getDateTime(),sdtd.getSeason() );
+                photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId), sdtd.getDateTime(),sdtd.getSeason(), sdtd.getDayNight());
     }
 
     private String getImgUrl(String photoId) throws JSONException {
@@ -93,6 +97,16 @@ public class CityInfo {
         seasonDateTimeDto.setDateTime(dateTime);
 
         return seasonDateTimeDto;
+    }
+
+    public String getPhotoHour(String photoId) throws JSONException, ParseException {
+        flickrRequest.getPhotoDateTime(photoId);
+        JSONObject photoDateTime = flickrRequest.getResponseJSON_Format();
+
+        String dateTime = photoDateTime.getJSONObject("photo").getJSONObject("dates").getString("taken");
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime);
+
+        return new SimpleDateFormat("H").format(date);
     }
 
 
