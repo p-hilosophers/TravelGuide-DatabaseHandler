@@ -6,8 +6,6 @@ import java.util.List;
 
 public class RegionHour {
 
-    private String hourToVisit;
-
 
     public String hourDecide(List<PhotoGeoLoc> photoGeoLocs){
         int daySum = 0,nightSum = 0;

@@ -13,7 +13,7 @@ public class SeasonDateTimeDto {
     private String dayNight;
 
 
-    private String setSeason(int monthDay) {
+    public String setSeason(int monthDay) {
         String season;
 
         if (monthDay <= 315) {
@@ -30,7 +30,7 @@ public class SeasonDateTimeDto {
         return season;
     }
 
-    private String dayNightDecide(String photoHour) {
+    public String dayNightDecide(String photoHour) {
         int hour = Integer.parseInt(photoHour);
         String dayNight;
         if (hour >=6 && hour <=19){
@@ -40,6 +40,7 @@ public class SeasonDateTimeDto {
 
         return dayNight;
     }
+
 
     public String getDateTime() {
         return dateTime;

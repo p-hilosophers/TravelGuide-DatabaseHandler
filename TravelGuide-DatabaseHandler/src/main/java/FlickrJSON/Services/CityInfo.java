@@ -31,7 +31,7 @@ public class CityInfo {
         }
     }
 
-    private List<Region> getTopPhotoCountOfRegion(String placeId) {
+    public List<Region> getTopPhotoCountOfRegion(String placeId) {
         List<Region> regions = new ArrayList<>();
         flickrRequest.photoCountPerRegion(placeId);
         JSONObject region_json = flickrRequest.getResponseJSON_Format();
@@ -57,7 +57,7 @@ public class CityInfo {
 
     }
 
-    private List<PhotoGeoLoc> getPhotoListByGeoLoc(String latitude, String longitude) {
+    public List<PhotoGeoLoc> getPhotoListByGeoLoc(String latitude, String longitude) {
         flickrRequest.getPhotosByGeoLoc(latitude, longitude, "0.3");
         List<PhotoGeoLoc> photoGeoLocsList = new ArrayList<>();
         JSONObject photoId_json = flickrRequest.getResponseJSON_Format();
@@ -73,7 +73,7 @@ public class CityInfo {
         return photoGeoLocsList;
     }
 
-    private PhotoGeoLoc getGeoLocFromPhotoId(String photoId) throws JSONException {
+    public PhotoGeoLoc getGeoLocFromPhotoId(String photoId) throws JSONException {
         flickrRequest.geoLocFromPhoto(photoId);
         JSONObject photoGeoLoc_json = flickrRequest.getResponseJSON_Format();
         SeasonDateTimeDto sdtd = getPhotoSeason(photoId);
@@ -81,7 +81,7 @@ public class CityInfo {
                 photoGeoLoc_json.getJSONObject("photo").getJSONObject("location").getString("longitude"), photoId, getImgUrl(photoId), sdtd.getDateTime(),sdtd.getSeason(), sdtd.getDayNight());
     }
 
-    private String getImgUrl(String photoId) throws JSONException {
+    public String getImgUrl(String photoId) throws JSONException {
         flickrRequest.getImgUrl(photoId);
         JSONObject imgUrl_json = flickrRequest.getResponseJSON_Format();
         return imgUrl_json.getJSONObject("sizes").getJSONArray("size").getJSONObject(imgUrl_json.getJSONObject("sizes").getJSONArray("size").length() - 1).getString("source");

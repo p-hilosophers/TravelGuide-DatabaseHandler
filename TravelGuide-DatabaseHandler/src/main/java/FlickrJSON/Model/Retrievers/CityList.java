@@ -1,5 +1,6 @@
 package FlickrJSON.Model.Retrievers;
 
+import FlickrJSON.Services.HttpRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,19 +20,9 @@ public class CityList {
     public void retrieveCityList(){
 
         try{
-            URL urlObj = new URL("http://83.212.103.26:8081/cities");
-            HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
+            HttpRequest httpRequest = new HttpRequest();
+            JSONArray jsonArray = httpRequest.request("http://35.204.237.100:8081/cities");
 
-            BufferedReader in = new BufferedReader( new InputStreamReader((con.getInputStream())));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null){
-                response.append(inputLine);
-            }
-            in.close();
-
-            JSONArray jsonArray = new JSONArray(response.toString());
             for(int i =0;i<jsonArray.length();i++){
                 JSONObject json = (JSONObject) jsonArray.get(i);
                 cityList.add(json.getString("name"));

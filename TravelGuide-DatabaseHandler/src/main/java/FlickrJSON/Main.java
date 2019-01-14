@@ -11,6 +11,7 @@ import FlickrJSON.Model.Retrievers.PhotoList;
 import FlickrJSON.Model.Retrievers.SightsList;
 import FlickrJSON.Services.CityInfo;
 import FlickrJSON.Services.FlickrClient;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main {
@@ -26,8 +28,12 @@ public class Main {
     public static void main(String[] args) {
         CityList retrieveCityList = new CityList();
         retrieveCityList.retrieveCityList();
-
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://35.204.237.100:8081/").addConverterFactory(GsonConverterFactory.create());
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.MINUTES)
+                .writeTimeout(15, TimeUnit.MINUTES)
+                .build();
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://35.204.237.100:8081/").client(okHttpClient).addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         FlickrClient client = retrofit.create(FlickrClient.class);
